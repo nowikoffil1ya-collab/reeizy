@@ -1,147 +1,511 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Электромонтаж — Иван Петров</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Электромонтажные работы под ключ: проводка, освещение, щиты и диагностика. Выезд и консультация.">
+  <meta name="theme-color" content="#101210">
+  <title>Электромонтаж под ключ — Алексей Морозов</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
   <style>
     :root {
-      --primary: #f39c12; /* тёплый оранжевый */
-      --dark: #2c3e50;
-      --light: #ecf0f1;
+      --bg: #101210;
+      --surface: #181b18;
+      --surface-light: #202420;
+      --text: #f3f5ef;
+      --muted: #a4aaa1;
+      --accent: #d5ff3f;
+      --line: rgba(255,255,255,.1);
+      --radius: 22px;
+      --max: 1160px;
     }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
     body {
-      font-family: Arial, sans-serif;
       margin: 0;
-      padding: 0;
-      color: var(--dark);
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Manrope", sans-serif;
       line-height: 1.6;
-      background: var(--light);
     }
-    header {
-      background: var(--dark);
-      color: white;
-      padding: 2rem 1rem;
-      text-align: center;
+    a { color: inherit; text-decoration: none; }
+    button, input, textarea, select { font: inherit; }
+    button { cursor: pointer; }
+    .container { width: min(var(--max), calc(100% - 40px)); margin: 0 auto; }
+
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(16,18,16,.88);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--line);
     }
-    h1 { margin: 0; font-size: 2.2rem; }
-    h2 { margin-top: 0.5rem; color: var(--primary); }
-    .container {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 1rem;
+    .nav {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
     }
-    section {
-      padding: 2rem 0;
+    .brand { display: flex; align-items: center; gap: 12px; font-weight: 800; }
+    .brand-mark {
+      width: 38px; height: 38px; border-radius: 12px;
+      display: grid; place-items: center;
+      color: #101210; background: var(--accent); font-size: 21px;
     }
-    .services, .contacts {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1.5rem;
+    .brand small { display: block; color: var(--muted); font-size: 11px; font-weight: 500; }
+    .nav-links { display: flex; gap: 26px; color: #d3d7d0; font-size: 13px; }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-actions { display: flex; align-items: center; gap: 16px; }
+    .phone { font-weight: 700; font-size: 14px; }
+
+    .button {
+      display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+      min-height: 48px; padding: 0 20px; border: 0; border-radius: 12px;
+      background: var(--accent); color: #11140d; font-weight: 800;
+      transition: transform .2s, background .2s;
     }
+    .button:hover { transform: translateY(-2px); background: #e2ff77; }
+    .button.secondary { background: transparent; color: var(--text); border: 1px solid var(--line); }
+    .button.secondary:hover { border-color: var(--accent); color: var(--accent); }
+    .menu-toggle { display: none; background: none; border: 0; color: white; font-size: 25px; }
+
+    .hero { padding: 78px 0 72px; overflow: hidden; }
+    .hero-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 50px; align-items: center; }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 9px; color: var(--accent);
+      font-size: 12px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase;
+    }
+    .eyebrow::before { content: ""; width: 22px; height: 1px; background: var(--accent); }
+    h1 { max-width: 680px; margin: 18px 0; font-size: clamp(42px, 6vw, 72px); line-height: 1.04; letter-spacing: -.06em; }
+    h1 span { color: var(--accent); }
+    .hero-copy { max-width: 530px; color: var(--muted); font-size: 16px; }
+    .hero-buttons { display: flex; flex-wrap: wrap; gap: 12px; margin: 28px 0 34px; }
+    .hero-facts { display: flex; gap: 28px; flex-wrap: wrap; }
+    .fact strong { display: block; font-size: 23px; }
+    .fact span { color: var(--muted); font-size: 12px; }
+
+    .hero-visual {
+      min-height: 470px; position: relative; border-radius: 30px; overflow: hidden;
+      background:
+        linear-gradient(180deg, rgba(10,12,10,.05), rgba(10,12,10,.65)),
+        url("https://images.unsplash.com/photo-1621905251918-48416bd8575a?auto=format&fit=crop&w=1200&q=85") center/cover;
+      border: 1px solid var(--line);
+    }
+    .visual-label {
+      position: absolute; left: 22px; bottom: 22px; right: 22px;
+      padding: 18px; border: 1px solid rgba(255,255,255,.16);
+      border-radius: 16px; background: rgba(15,17,15,.72); backdrop-filter: blur(10px);
+    }
+    .visual-label strong { display: block; font-size: 17px; }
+    .visual-label span { color: #c2c8bf; font-size: 13px; }
+
+    .trust-bar {
+      border-block: 1px solid var(--line); padding: 22px 0;
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px;
+    }
+    .trust-item { display: flex; align-items: center; gap: 12px; color: #d9ded6; font-size: 13px; }
+    .trust-icon { color: var(--accent); font-size: 20px; }
+
+    section { padding: 92px 0; }
+    .section-head { display: flex; justify-content: space-between; align-items: end; gap: 30px; margin-bottom: 34px; }
+    .section-head h2 { margin: 10px 0 0; font-size: clamp(32px, 4vw, 48px); line-height: 1.1; letter-spacing: -.05em; }
+    .section-head p { max-width: 390px; color: var(--muted); margin: 0; font-size: 14px; }
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
     .card {
-      background: white;
-      padding: 1.5rem;
-      border-radius: 8px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      padding: 25px; border: 1px solid var(--line); border-radius: var(--radius);
+      background: var(--surface); transition: transform .2s, border-color .2s;
     }
-    .price {
-      color: var(--primary);
-      font-weight: bold;
-      font-size: 1.1rem;
+    .card:hover { transform: translateY(-4px); border-color: rgba(213,255,63,.45); }
+    .card-icon { width: 48px; height: 48px; display: grid; place-items: center; border-radius: 14px; background: rgba(213,255,63,.1); color: var(--accent); font-size: 22px; }
+    .card h3 { margin: 18px 0 8px; font-size: 18px; }
+    .card p { margin: 0; color: var(--muted); font-size: 13px; }
+    .card-price { margin-top: 20px; color: var(--accent); font-weight: 800; font-size: 14px; }
+
+    .about { background: #151815; border-block: 1px solid var(--line); }
+    .about-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 58px; align-items: center; }
+    .about-photo {
+      min-height: 430px; border-radius: 26px;
+      background: linear-gradient(180deg, transparent, rgba(0,0,0,.25)),
+        url("https://images.unsplash.com/photo-1621905252507-b35492cc74b4?auto=format&fit=crop&w=1000&q=85") center/cover;
     }
-    button, .btn {
-      display: inline-block;
-      background: var(--primary);
-      color: white;
-      padding: 0.8rem 1.5rem;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      text-decoration: none;
-      font-size: 1rem;
+    .about-copy h2 { margin: 12px 0 16px; font-size: clamp(32px, 4vw, 48px); line-height: 1.1; letter-spacing: -.05em; }
+    .about-copy > p { color: var(--muted); }
+    .check-list { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 26px 0; }
+    .check { color: #dce1d8; font-size: 13px; }
+    .check::before { content: "✓"; color: var(--accent); font-weight: 800; margin-right: 9px; }
+
+    .process { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; counter-reset: steps; }
+    .step { padding: 22px; border-top: 1px solid var(--line); counter-increment: steps; }
+    .step::before { content: "0" counter(steps); color: var(--accent); font-weight: 800; font-size: 13px; }
+    .step h3 { margin: 14px 0 7px; font-size: 16px; }
+    .step p { margin: 0; color: var(--muted); font-size: 13px; }
+
+    .portfolio { background: #151815; border-block: 1px solid var(--line); }
+    .projects { display: grid; grid-template-columns: 1.2fr .8fr .8fr; gap: 14px; }
+    .project {
+      min-height: 270px; position: relative; display: flex; align-items: end;
+      overflow: hidden; border-radius: 20px; background-size: cover; background-position: center;
     }
-    button:hover, .btn:hover {
-      opacity: 0.9;
+    .project::before { content: ""; position: absolute; inset: 0; background: linear-gradient(transparent 25%, rgba(0,0,0,.8)); }
+    .project-info { position: relative; padding: 20px; }
+    .project-info strong { display: block; }
+    .project-info span { color: #d0d4cd; font-size: 12px; }
+    .project:nth-child(1) { background-image: url("https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1000&q=85"); }
+    .project:nth-child(2) { background-image: url("https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=800&q=85"); }
+    .project:nth-child(3) { background-image: url("https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=800&q=85"); }
+
+    .reviews { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .review { padding: 24px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
+    .stars { color: var(--accent); letter-spacing: 3px; }
+    .review p { color: #d2d7ce; font-size: 14px; }
+    .review strong { font-size: 13px; }
+    .review small { display: block; color: var(--muted); }
+
+    .contact { padding-bottom: 100px; }
+    .contact-box {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 45px;
+      padding: 42px; border-radius: 28px; background: var(--surface-light);
+      border: 1px solid var(--line);
     }
-    footer {
-      text-align: center;
-      padding: 1.5rem;
-      color: #7f8c8d;
-      font-size: 0.9rem;
+    .contact-box h2 { margin: 8px 0 12px; font-size: clamp(32px, 4vw, 46px); line-height: 1.1; letter-spacing: -.05em; }
+    .contact-box p { color: var(--muted); }
+    .contact-details { display: grid; gap: 13px; margin-top: 25px; }
+    .contact-details a { font-weight: 700; }
+    .contact-details span { color: var(--muted); font-size: 12px; display: block; }
+    form { display: grid; gap: 12px; }
+    input, textarea, select {
+      width: 100%; padding: 14px 15px; border-radius: 11px;
+      color: var(--text); background: #121512; border: 1px solid var(--line); outline: none;
+    }
+    input:focus, textarea:focus, select:focus { border-color: var(--accent); }
+    textarea { min-height: 100px; resize: vertical; }
+    .form-note { color: var(--muted); font-size: 11px; }
+    .footer { border-top: 1px solid var(--line); padding: 24px 0; color: var(--muted); font-size: 12px; }
+    .footer-inner { display: flex; justify-content: space-between; gap: 20px; }
+
+    .toast {
+      position: fixed; bottom: 20px; left: 50%; transform: translate(-50%, 20px);
+      opacity: 0; pointer-events: none; padding: 14px 18px; border-radius: 12px;
+      color: #101210; background: var(--accent); font-weight: 700; z-index: 50;
+      transition: .25s;
+    }
+    .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .menu-toggle { display: block; }
+      .hero-grid, .about-grid { grid-template-columns: 1fr; }
+      .hero-visual { min-height: 380px; }
+      .cards, .reviews { grid-template-columns: repeat(2, 1fr); }
+      .projects { grid-template-columns: 1fr 1fr; }
+      .project:first-child { grid-column: span 2; }
+      .process { grid-template-columns: repeat(2, 1fr); }
     }
     @media (max-width: 600px) {
-      h1 { font-size: 1.8rem; }
-      .container { padding: 0.5rem; }
+      .container { width: min(100% - 28px, var(--max)); }
+      .nav { min-height: 66px; }
+      .nav-actions .phone { display: none; }
+      .hero { padding: 55px 0; }
+      .hero-visual { min-height: 310px; }
+      .trust-bar { grid-template-columns: 1fr 1fr; }
+      section { padding: 68px 0; }
+      .section-head { display: block; }
+      .section-head p { margin-top: 14px; }
+      .cards, .reviews, .projects, .process { grid-template-columns: 1fr; }
+      .project:first-child { grid-column: auto; }
+      .project { min-height: 230px; }
+      .about-photo { min-height: 300px; }
+      .check-list { grid-template-columns: 1fr; }
+      .contact-box { grid-template-columns: 1fr; padding: 24px; gap: 25px; }
+      .footer-inner { flex-direction: column; }
     }
   </style>
 </head>
+
 <body>
-  <header>
-    <div class="container">
-      <h1>Иван Петров</h1>
-      <h2>Электромонтаж • Выезд на дом</h2>
-      <p>Профессиональный электромонтаж: розетки, щитки, проводка, освещение.</p>
+  <header class="header">
+    <div class="container nav">
+      <a class="brand" href="#home" aria-label="На главную">
+        <span class="brand-mark">ϟ</span>
+        <span>Алексей Морозов<small>Электромонтаж под ключ</small></span>
+      </a>
+
+      <nav class="nav-links" id="navLinks">
+        <a href="#services">Услуги</a>
+        <a href="#about">Обо мне</a>
+        <a href="#projects">Работы</a>
+        <a href="#reviews">Отзывы</a>
+        <a href="#contacts">Контакты</a>
+      </nav>
+
+      <div class="nav-actions">
+        <a class="phone" href="tel:+79991234567">+7 (999) 123-45-67</a>
+        <a class="button" href="#contacts">Вызвать мастера</a>
+        <button class="menu-toggle" id="menuToggle" aria-label="Открыть меню">☰</button>
+      </div>
     </div>
   </header>
 
-  <main class="container">
-    <section id="about">
-      <h3>О себе</h3>
-      <p>Работаю в электромонтаже более 5 лет. Выполняю работы по ПУЭ и ГОСТ, даю гарантию на монтаж. Работаю аккуратно, без пыли там, где это возможно, и всегда согласовываю этапы с заказчиком.</p>
+  <main>
+    <section class="hero" id="home">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow">Частный мастер · [Ваш город]</div>
+          <h1>Электрика, которой <span>можно доверять</span></h1>
+          <p class="hero-copy">
+            Монтаж и ремонт электрики в квартирах и домах. Работаю аккуратно,
+            соблюдаю нормы и заранее согласую стоимость.
+          </p>
+          <div class="hero-buttons">
+            <a class="button" href="#contacts">Обсудить задачу <span>↗</span></a>
+            <a class="button secondary" href="#services">Посмотреть услуги</a>
+          </div>
+          <div class="hero-facts">
+            <div class="fact"><strong>10 лет</strong><span>опыта в электромонтаже</span></div>
+            <div class="fact"><strong>500+</strong><span>выполненных объектов</span></div>
+            <div class="fact"><strong>2 года</strong><span>гарантии на работы</span></div>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <div class="visual-label">
+            <strong>Безопасно. Чисто. По договорённости.</strong>
+            <span>От диагностики до полного монтажа электрики</span>
+          </div>
+        </div>
+      </div>
     </section>
+
+    <div class="container trust-bar">
+      <div class="trust-item"><span class="trust-icon">✓</span> Смета до начала работ</div>
+      <div class="trust-item"><span class="trust-icon">⚡</span> Соблюдение ПУЭ и норм</div>
+      <div class="trust-item"><span class="trust-icon">⌂</span> Работаю с квартирами и домами</div>
+      <div class="trust-item"><span class="trust-icon">◷</span> Выезд по договорённости</div>
+    </div>
 
     <section id="services">
-      <h3>Услуги</h3>
-      <div class="services">
-        <div class="card">
-          <h4>Установка розеток и выключателей</h4>
-          <p>Монтаж в гипсокартон, бетон, кирпич. Подключение УЗО и автоматов.</p>
-          <div class="price">от 300 ₽ за точку</div>
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">Чем помогу</div>
+            <h2>Электромонтажные услуги</h2>
+          </div>
+          <p>Подберу решение под объект, объясню варианты и согласую стоимость до начала работ.</p>
         </div>
-        <div class="card">
-          <h4>Сборка электрощита</h4>
-          <p>Подбор автоматов, УЗО, дифавтоматов. Маркировка и схема.</p>
-          <div class="price">от 5 000 ₽</div>
-        </div>
-        <div class="card">
-          <h4>Прокладка проводки</h4>
-          <p>Штробление, кабель-каналы, гофра. Скрытая и открытая проводка.</p>
-          <div class="price">от 150 ₽ за метр</div>
-        </div>
-        <div class="card">
-          <h4>Освещение и люстры</h4>
-          <p>Точечные светильники, трековые системы, подключение умных ламп.</p>
-          <div class="price">от 400 ₽ за светильник</div>
+
+        <div class="cards">
+          <article class="card">
+            <div class="card-icon">⌁</div>
+            <h3>Монтаж проводки</h3>
+            <p>Новая проводка в квартире, доме или коммерческом помещении — от проекта до подключения.</p>
+            <div class="card-price">от 450 ₽ / точка</div>
+          </article>
+          <article class="card">
+            <div class="card-icon">▦</div>
+            <h3>Сборка электрощитов</h3>
+            <p>Подбор и установка автоматов, УЗО и дифавтоматов. Маркировка линий и проверка схемы.</p>
+            <div class="card-price">от 5 000 ₽</div>
+          </article>
+          <article class="card">
+            <div class="card-icon">◉</div>
+            <h3>Освещение</h3>
+            <p>Установка люстр, светильников, подсветки, выключателей и систем управления светом.</p>
+            <div class="card-price">от 800 ₽</div>
+          </article>
+          <article class="card">
+            <div class="card-icon">⌕</div>
+            <h3>Диагностика и ремонт</h3>
+            <p>Поиск неисправностей, устранение коротких замыканий и восстановление электроснабжения.</p>
+            <div class="card-price">от 1 500 ₽</div>
+          </article>
+          <article class="card">
+            <div class="card-icon">▤</div>
+            <h3>Розетки и выключатели</h3>
+            <p>Установка, перенос и замена розеток, выключателей и силовых точек.</p>
+            <div class="card-price">от 600 ₽ / точка</div>
+          </article>
+          <article class="card">
+            <div class="card-icon">⌂</div>
+            <h3>Электрика в доме</h3>
+            <p>Ввод электричества, разводка по помещениям, заземление и подключение оборудования.</p>
+            <div class="card-price">По смете</div>
+          </article>
         </div>
       </div>
     </section>
 
-    <section id="contacts">
-      <h3>Контакты</h3>
-      <div class="contacts">
-        <div class="card">
-          <h4>Телефон</h4>
-          <p><a href="tel:+79990000000">+7 (999) 000-00-00</a></p>
-        </div>
-        <div class="card">
-          <h4>WhatsApp / Telegram</h4>
-          <p><a href="https://wa.me/79990000000">Написать в WhatsApp</a></p>
-        </div>
-        <div class="card">
-          <h4>Район работы</h4>
-          <p>Москва и ближайшие пригороды (до 30 км от МКАД)</p>
+    <section class="about" id="about">
+      <div class="container about-grid">
+        <div class="about-photo" role="img" aria-label="Электромонтажные работы"></div>
+        <div class="about-copy">
+          <div class="eyebrow">О мастере</div>
+          <h2>Работаю так, чтобы не пришлось переделывать</h2>
+          <p>
+            Меня зовут Алексей. Занимаюсь электромонтажом более 10 лет.
+            Беру частные заказы в [Ваш город] и ближайших районах — от замены
+            одной розетки до электрики под ключ.
+          </p>
+          <div class="check-list">
+            <div class="check">Согласую план и бюджет заранее</div>
+            <div class="check">Использую качественные материалы</div>
+            <div class="check">Оставляю рабочее место чистым</div>
+            <div class="check">Предоставляю гарантию на работы</div>
+          </div>
+          <a class="button" href="#contacts">Задать вопрос</a>
         </div>
       </div>
-      <div style="margin-top:1.5rem; text-align:center;">
-        <button onclick="alert('Спасибо! Мы перезвоним в течение 15 минут.')">Заказать выезд</button>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">Понятный процесс</div>
+            <h2>От звонка до готового результата</h2>
+          </div>
+          <p>На каждом этапе вы понимаете, что происходит и сколько это стоит.</p>
+        </div>
+        <div class="process">
+          <article class="step"><h3>Заявка и консультация</h3><p>Уточняем задачу, адрес и удобное время для осмотра.</p></article>
+          <article class="step"><h3>Осмотр и смета</h3><p>Оцениваю объём работ, согласую материалы и фиксирую стоимость.</p></article>
+          <article class="step"><h3>Монтаж</h3><p>Выполняю работы аккуратно, с соблюдением технических требований.</p></article>
+          <article class="step"><h3>Проверка и гарантия</h3><p>Проверяем результат, передаю рекомендации и гарантию.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="portfolio" id="projects">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">Портфолио</div>
+            <h2>Примеры выполненных работ</h2>
+          </div>
+          <p>Добавьте сюда фотографии своих объектов — реальные работы лучше всего показывают качество.</p>
+        </div>
+        <div class="projects">
+          <article class="project"><div class="project-info"><strong>Электрика в квартире</strong><span>Разводка и сборка щита · 72 м²</span></div></article>
+          <article class="project"><div class="project-info"><strong>Освещение кухни</strong><span>Монтаж света и подсветки</span></div></article>
+          <article class="project"><div class="project-info"><strong>Дом за городом</strong><span>Монтаж электрики под ключ</span></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="reviews">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">Отзывы клиентов</div>
+            <h2>Рекомендуют знакомым</h2>
+          </div>
+          <p>Замените примеры ниже на настоящие отзывы клиентов.</p>
+        </div>
+        <div class="reviews">
+          <article class="review">
+            <div class="stars">★★★★★</div>
+            <p>«Алексей помог с разводкой электрики в новой квартире. Всё объяснил, сделал аккуратно и уложился в согласованный срок.»</p>
+            <strong>Марина К.</strong><small>Электрика в квартире</small>
+          </article>
+          <article class="review">
+            <div class="stars">★★★★★</div>
+            <p>«Быстро нашёл причину неисправности и заменил автоматы. Стоимость заранее обсудили, никаких сюрпризов.»</p>
+            <strong>Игорь С.</strong><small>Диагностика и ремонт</small>
+          </article>
+          <article class="review">
+            <div class="stars">★★★★★</div>
+            <p>«Собрал щит и подключил освещение в доме. Работой довольны, всё подписано и понятно.»</p>
+            <strong>Ольга Н.</strong><small>Электрика в загородном доме</small>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact" id="contacts">
+      <div class="container">
+        <div class="contact-box">
+          <div>
+            <div class="eyebrow">Связаться со мной</div>
+            <h2>Расскажите, что нужно сделать</h2>
+            <p>Позвоните или оставьте заявку. Отвечу на вопросы и помогу сориентироваться по стоимости.</p>
+            <div class="contact-details">
+              <a href="tel:+79991234567">+7 (999) 123-45-67<span>Звонок или WhatsApp</span></a>
+              <a href="mailto:master@example.ru">master@example.ru<span>Для писем и смет</span></a>
+              <div><strong>[Ваш город и район]</strong><span>Выезд по предварительной договорённости</span></div>
+            </div>
+          </div>
+
+          <form id="contactForm">
+            <input name="name" placeholder="Ваше имя" autocomplete="name" required>
+            <input name="phone" type="tel" placeholder="Номер телефона" autocomplete="tel" required>
+            <select name="service" aria-label="Выберите услугу">
+              <option value="">Какая услуга нужна?</option>
+              <option>Монтаж проводки</option>
+              <option>Сборка электрощита</option>
+              <option>Освещение</option>
+              <option>Диагностика и ремонт</option>
+              <option>Другое</option>
+            </select>
+            <textarea name="message" placeholder="Кратко опишите задачу"></textarea>
+            <button class="button" type="submit">Отправить заявку <span>↗</span></button>
+            <div class="form-note">Нажимая кнопку, вы соглашаетесь на обработку персональных данных.</div>
+          </form>
+        </div>
       </div>
     </section>
   </main>
 
-  <footer>
-    &copy; 2024 Иван Петров. Все права защищены.
+  <footer class="footer">
+    <div class="container footer-inner">
+      <span>© <span id="year"></span> Алексей Морозов · Электромонтаж</span>
+      <span>Работаю в [Ваш город] и ближайших районах</span>
+    </div>
   </footer>
+
+  <div class="toast" id="toast">Спасибо! Для отправки подключите форму к телефону или почте.</div>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    const menuToggle = document.getElementById("menuToggle");
+    const navLinks = document.getElementById("navLinks");
+
+    menuToggle.addEventListener("click", () => {
+      const isOpen = navLinks.style.display === "flex";
+      navLinks.style.display = isOpen ? "none" : "flex";
+      if (!isOpen) {
+        Object.assign(navLinks.style, {
+          position: "absolute",
+          top: "66px",
+          left: "14px",
+          right: "14px",
+          padding: "18px",
+          flexDirection: "column",
+          background: "#181b18",
+          border: "1px solid rgba(255,255,255,.1)",
+          borderRadius: "14px"
+        });
+      }
+    });
+
+    navLinks.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", () => {
+        if (window.innerWidth <= 900) navLinks.style.display = "none";
+      });
+    });
+
+    document.getElementById("contactForm").addEventListener("submit", event => {
+      event.preventDefault();
+      document.getElementById("toast").classList.add("show");
+      event.target.reset();
+      setTimeout(() => document.getElementById("toast").classList.remove("show"), 4000);
+    });
+  </script>
 </body>
 </html>
-
