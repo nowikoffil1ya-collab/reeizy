@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Электромонтаж — Иван Петров</title>
+  <style>
+    :root {
+      --primary: #f39c12; /* тёплый оранжевый */
+      --dark: #2c3e50;
+      --light: #ecf0f1;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      color: var(--dark);
+      line-height: 1.6;
+      background: var(--light);
+    }
+    header {
+      background: var(--dark);
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+    h1 { margin: 0; font-size: 2.2rem; }
+    h2 { margin-top: 0.5rem; color: var(--primary); }
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 1rem;
+    }
+    section {
+      padding: 2rem 0;
+    }
+    .services, .contacts {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+    .card {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .price {
+      color: var(--primary);
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+    button, .btn {
+      display: inline-block;
+      background: var(--primary);
+      color: white;
+      padding: 0.8rem 1.5rem;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      text-decoration: none;
+      font-size: 1rem;
+    }
+    button:hover, .btn:hover {
+      opacity: 0.9;
+    }
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      color: #7f8c8d;
+      font-size: 0.9rem;
+    }
+    @media (max-width: 600px) {
+      h1 { font-size: 1.8rem; }
+      .container { padding: 0.5rem; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1>Иван Петров</h1>
+      <h2>Электромонтаж • Выезд на дом</h2>
+      <p>Профессиональный электромонтаж: розетки, щитки, проводка, освещение.</p>
+    </div>
+  </header>
+
+  <main class="container">
+    <section id="about">
+      <h3>О себе</h3>
+      <p>Работаю в электромонтаже более 5 лет. Выполняю работы по ПУЭ и ГОСТ, даю гарантию на монтаж. Работаю аккуратно, без пыли там, где это возможно, и всегда согласовываю этапы с заказчиком.</p>
+    </section>
+
+    <section id="services">
+      <h3>Услуги</h3>
+      <div class="services">
+        <div class="card">
+          <h4>Установка розеток и выключателей</h4>
+          <p>Монтаж в гипсокартон, бетон, кирпич. Подключение УЗО и автоматов.</p>
+          <div class="price">от 300 ₽ за точку</div>
+        </div>
+        <div class="card">
+          <h4>Сборка электрощита</h4>
+          <p>Подбор автоматов, УЗО, дифавтоматов. Маркировка и схема.</p>
+          <div class="price">от 5 000 ₽</div>
+        </div>
+        <div class="card">
+          <h4>Прокладка проводки</h4>
+          <p>Штробление, кабель-каналы, гофра. Скрытая и открытая проводка.</p>
+          <div class="price">от 150 ₽ за метр</div>
+        </div>
+        <div class="card">
+          <h4>Освещение и люстры</h4>
+          <p>Точечные светильники, трековые системы, подключение умных ламп.</p>
+          <div class="price">от 400 ₽ за светильник</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contacts">
+      <h3>Контакты</h3>
+      <div class="contacts">
+        <div class="card">
+          <h4>Телефон</h4>
+          <p><a href="tel:+79990000000">+7 (999) 000-00-00</a></p>
+        </div>
+        <div class="card">
+          <h4>WhatsApp / Telegram</h4>
+          <p><a href="https://wa.me/79990000000">Написать в WhatsApp</a></p>
+        </div>
+        <div class="card">
+          <h4>Район работы</h4>
+          <p>Москва и ближайшие пригороды (до 30 км от МКАД)</p>
+        </div>
+      </div>
+      <div style="margin-top:1.5rem; text-align:center;">
+        <button onclick="alert('Спасибо! Мы перезвоним в течение 15 минут.')">Заказать выезд</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    &copy; 2024 Иван Петров. Все права защищены.
+  </footer>
+</body>
+</html>
+
